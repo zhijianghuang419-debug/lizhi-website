@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="不会写代码，也能上线一个 Apple 风格的个人网站。记录我用 Cursor 和 AI 协作完成网站搭建、迭代和部署的全过程与经验。">
+    <title>我如何用 AI 从零搭建这个网站｜Coco</title>
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://lizhi-website.vercel.app/posts/build-website-with-ai.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="我如何用 AI 从零搭建这个网站">
+    <meta property="og:description" content="不会写代码，也能上线一个 Apple 风格的个人网站。记录我用 Cursor 和 AI 协作完成搭建、迭代和部署的全过程。">
+    <meta property="og:url" content="https://lizhi-website.vercel.app/posts/build-website-with-ai.html">
+    <meta property="og:image" content="https://lizhi-website.vercel.app/images/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "我如何用 AI 从零搭建这个网站",
+      "description": "不会写代码，也能上线一个 Apple 风格的个人网站。记录我用 Cursor 和 AI 协作完成搭建、迭代和部署的全过程。",
+      "datePublished": "2026-07-19",
+      "author": {
+        "@type": "Person",
+        "name": "Coco",
+        "url": "https://lizhi-website.vercel.app/"
+      },
+      "url": "https://lizhi-website.vercel.app/posts/build-website-with-ai.html"
+    }
+    </script>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <a href="../index.html">Coco</a>
+        </div>
+
+        <div class="menu">
+            <a href="../index.html#about">关于</a>
+            <a href="../index.html#skills">技能</a>
+            <a href="../index.html#projects">项目</a>
+            <a href="../blog.html">博客</a>
+            <a href="../index.html#contact">联系</a>
+        </div>
+    </nav>
+
+    <main>
+        <article class="post">
+            <header class="post-header">
+                <p class="section-label">Blog</p>
+                <h1>我如何用 AI 从零搭建这个网站</h1>
+                <p class="post-meta"><time datetime="2026-07-19">2026 年 7 月 19 日</time> · Coco</p>
+            </header>
+
+            <div class="post-content">
+                <p>
+                    我不是程序员。写这篇文章的时候，我学习 HTML 和 CSS 的时间并不长，
+                    JavaScript 更是刚刚入门。但你现在看到的这个网站——Apple 风格的设计、
+                    响应式布局、右下角的 AI 聊天按钮——都是我完成的。
+                </p>
+                <p>
+                    准确地说，是我和 AI 一起完成的。这篇文章记录真实的过程，
+                    包括走通的部分和踩过的坑。
+                </p>
+
+                <h2>我的工具组合</h2>
+                <ul>
+                    <li><strong>Cursor</strong>：内置 AI 助手的代码编辑器，整个网站的代码都在这里完成</li>
+                    <li><strong>HTML / CSS / JavaScript</strong>：网站本身只用了这三样，没有框架</li>
+                    <li><strong>Git + GitHub</strong>：版本管理，每次改动都有记录，改坏了可以回退</li>
+                    <li><strong>Vercel</strong>：部署平台，代码推送到 GitHub 后自动上线</li>
+                </ul>
+
+                <h2>我是怎么和 AI 协作的</h2>
+                <p>
+                    最重要的一条经验：<strong>需求写得越具体，AI 给的结果越好。</strong>
+                    我每次让 AI 改网站，都会把要求列成清单，比如：保持 Apple 极简风格、
+                    HTML 和 CSS 分离到不同文件、页面要完全响应式、不要破坏现有布局。
+                </p>
+                <p>
+                    模糊的指令（"帮我把网站做好看一点"）得到的结果往往不可控；
+                    具体的指令（"右下角加一个蓝色圆形聊天按钮，鼠标悬停轻微放大"）
+                    几乎一次就能到位。
+                </p>
+                <p>整个网站就是这样一步步迭代出来的：</p>
+                <ul>
+                    <li>先搭出静态的首页结构：导航、Hero 区、关于我</li>
+                    <li>加入技能卡片和项目卡片</li>
+                    <li>做左右分栏的 Hero，放上头像</li>
+                    <li>加 AI 聊天按钮和弹窗（目前是界面占位，真正的对话功能在计划中）</li>
+                    <li>每一步都在手机和电脑上检查显示效果</li>
+                </ul>
+
+                <h2>AI 会犯错，验收是我的责任</h2>
+                <p>
+                    AI 不是全对的。让 AI 检查我的代码时，它发现了几个自己之前留下的问题：
+                    平滑滚动的样式写错了位置导致一直没生效、Safari 浏览器需要的兼容前缀没加、
+                    还有一段永远不会用到的死代码。
+                </p>
+                <p>
+                    这给我的启示是：<strong>把 AI 当成能力很强但需要验收的合作者，
+                    而不是不会出错的机器。</strong>每次改动后自己在浏览器里点一遍、
+                    定期让 AI 复查整个项目，这两个习惯帮我避免了很多问题。
+                </p>
+
+                <h2>部署比想象中简单</h2>
+                <p>
+                    代码托管在 GitHub 上，Vercel 关联仓库之后，每次推送代码都会自动部署。
+                    整个流程走通之后，发布更新只需要三个命令：add、commit、push，
+                    几十秒后改动就出现在线上。
+                </p>
+
+                <h2>下一步</h2>
+                <ul>
+                    <li>完善 SEO 基础设施：favicon、Open Graph、结构化数据、sitemap</li>
+                    <li>持续写作，记录 AI、网站开发和 SEO 的实践</li>
+                    <li>开发真正能对话的 Coco AI 助手</li>
+                </ul>
+                <p>
+                    如果你也想用 AI 搭建自己的网站，或者在过程中遇到了问题，
+                    欢迎<a href="../index.html#contact">邮件交流</a>。
+                </p>
+            </div>
+
+            <a href="../blog.html" class="post-back">← 返回博客</a>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Coco</p>
+        <p>持续学习 · 持续创造</p>
+    </footer>
+
+</body>
+</html>

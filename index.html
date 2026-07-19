@@ -3,71 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>荔纸的个人网站</title>
-<link rel="stylesheet" href="style.css">
+    <meta name="description" content="Coco，AI 实践者。结合 AI、网站开发、SEO 与自动化，帮助个人和中小企业提升效率，分享真实的 AI 实践经验。">
+    <title>Coco｜AI 实践者 · 用 AI 帮个人和企业提效</title>
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://lizhi-website.vercel.app/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Coco｜AI 实践者 · 用 AI 帮个人和企业提效">
+    <meta property="og:description" content="结合 AI、网站开发、SEO 与自动化，帮助个人和中小企业提升效率，分享真实的 AI 实践经验。">
+    <meta property="og:url" content="https://lizhi-website.vercel.app/">
+    <meta property="og:image" content="https://lizhi-website.vercel.app/images/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Coco",
+      "url": "https://lizhi-website.vercel.app/",
+      "image": "https://lizhi-website.vercel.app/images/avatar.png",
+      "jobTitle": "AI 实践者",
+      "description": "专注于用 AI 提升个人和企业的工作效率，结合网站开发、SEO 与自动化创造价值。",
+      "email": "mailto:zhijianghuang419@gmail.com",
+      "sameAs": [
+        "https://github.com/zhijianghuang419-debug"
+      ],
+      "knowsAbout": ["AI", "Web Development", "SEO", "GEO", "Automation"]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-   <nav>
-    <div class="logo">
-        <a href="#">荔纸</a>
-    </div>
-
-    <div class="menu">
-        <a href="#">关于</a>
-        <a href="#">项目</a>
-        <a href="#">博客</a>
-        <a href="#">联系</a>
-    </div>
-</nav>
- <main>
-    <div class="hero">
-
-        <h1>荔纸</h1>
-
-        <p>持续学习，持续创造。</p>
-
-        <p>AI · 编程 · 投资 · 创造</p>
-
-        <div class="buttons">
-            <a href="#" class="btn-primary">了解我</a>
-
-            <a href="#" class="btn-secondary">我的项目</a>
+    <nav>
+        <div class="logo">
+            <a href="#">Coco</a>
         </div>
 
-    </div>
-</main>
-<section class="about">
-    <section class="projects">
+        <div class="menu">
 
-    <h2>我的项目</h2>
+            <a href="#about">关于</a>
+            <a href="#skills">技能</a>
+            <a href="#projects">项目</a>
+            <a href="blog.html">博客</a>
+            <a href="#contact">联系</a>
+        </div>
+    </nav>
 
-    <div class="project-card">
-        <h3>个人网站</h3>
+    <main>
 
-        <p>
-            使用 HTML、CSS 开发的第一个个人品牌网站。
-        </p>
-    </div>
+        <div class="hero">
+            <div class="hero-content">
+                <p class="hero-eyebrow">AI 实践者 · 持续学习，持续创造</p>
 
-    <div class="project-card">
-        <h3>AI 学习计划</h3>
+                <h1>你好，我是 Coco 👋</h1>
 
-        <p>
-            记录 AI、编程、英语和投资的学习过程。
-        </p>
-    </div>
+                <p class="hero-description">
+                    我专注于用 AI 提升个人和企业的工作效率，
+                    结合网站开发、SEO 与自动化，创造真正有价值的产品。
+                </p>
 
-</section>
+                <div class="buttons">
+                    <a href="#projects" class="btn-primary">查看项目</a>
+                    <a href="#contact" class="btn-secondary">联系我</a>
+                </div>
+            </div>
+
+            <div class="hero-avatar">
+                <img src="images/avatar.png" alt="Coco 的头像" width="1024" height="1024">
+            </div>
+        </div>
+
+        <section id="skills" class="skills" aria-labelledby="skills-title">
+            <div class="section-heading">
+                <p class="section-label">Skills</p>
+                <h2 id="skills-title">持续学习，持续进步</h2>
+                <p>不追求静态的评分，用每一次实践积累真正的能力。</p>
+            </div>
+
+            <div class="skill-cards">
+                <article class="skill-card">
+                    <span class="skill-icon" aria-hidden="true">🤖</span>
+                    <span class="learning-status">持续学习中</span>
+                    <h3>AI</h3>
+                    <p>持续学习 AI 工作流、智能体和自动化。</p>
+                </article>
+
+                <article class="skill-card">
+                    <span class="skill-icon" aria-hidden="true">💻</span>
+                    <span class="learning-status">持续学习中</span>
+                    <h3>Web Development</h3>
+                    <p>学习 HTML、CSS、JavaScript，并持续开发个人网站。</p>
+                </article>
+
+                <article class="skill-card">
+                    <span class="skill-icon" aria-hidden="true">📈</span>
+                    <span class="learning-status">持续学习中</span>
+                    <h3>Investment</h3>
+                    <p>长期关注指数投资、商业和科技趋势。</p>
+                </article>
+
+                <article class="skill-card">
+                    <span class="skill-icon" aria-hidden="true">🌍</span>
+                    <span class="learning-status">持续学习中</span>
+                    <h3>English</h3>
+                    <p>持续学习雅思和英语，提高国际化能力。</p>
+                </article>
+            </div>
+        </section>
+
+    <section id="about" class="about">
 
     <h2>关于我</h2>
 
     <p>
-        我是荔纸，目前正在学习 AI、编程、投资和英语，
-        希望通过持续学习，创造真正有价值的产品。
+        我是 Coco，一名 AI 实践者。我相信 AI 不只是聊天工具，
+        而是普通人放大能力的杠杆。
+    </p>
+
+    <p>
+        我专注于把 AI 用在真实场景里——搭建网站、优化 SEO、设计自动化工作流，
+        帮助个人和中小企业切实提升效率。
+    </p>
+
+    <p>
+        我的方式很简单：学习 → 实践 → 总结 → 优化 → 输出。
+        这个网站本身，就是我用 AI 完成的第一个作品。
     </p>
 
 </section>
 
+    <section id="projects" class="projects">
+        <div class="section-heading">
+            <p class="section-label">Projects</p>
+            <h2>我的项目</h2>
+            <p>把学习变成作品，在持续构建中验证想法。</p>
+        </div>
+
+        <div class="project-grid">
+            <article class="project-card">
+                <div class="project-card-top">
+                    <span class="project-icon" aria-hidden="true">⌘</span>
+                    <span class="project-status">持续迭代</span>
+                </div>
+                <h3>Coco 个人网站</h3>
+                <p>Apple 风格个人网站，使用 HTML、CSS、JavaScript、Git、GitHub、Vercel 搭建。</p>
+                <div class="project-tech" aria-label="使用技术">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Git</span>
+                    <span>GitHub</span>
+                    <span>Vercel</span>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-card-top">
+                    <span class="project-icon" aria-hidden="true">◎</span>
+                    <span class="project-status">进行中</span>
+                </div>
+                <h3>AI 学习路线</h3>
+                <p>记录 AI、编程、SEO、英语和投资学习过程。</p>
+                <div class="project-tech" aria-label="使用技术">
+                    <span>AI</span>
+                    <span>编程</span>
+                    <span>SEO</span>
+                    <span>英语</span>
+                    <span>投资</span>
+                </div>
+            </article>
+
+            <article class="project-card project-card-coming">
+                <div class="project-card-top">
+                    <span class="project-icon" aria-hidden="true">🤖</span>
+                    <span class="project-status">Coming Soon</span>
+                </div>
+                <h3>Coco AI（Coming Soon）</h3>
+                <p>未来将上线属于自己的 AI 智能助手。</p>
+                <div class="project-tech" aria-label="计划使用技术">
+                    <span>LLM</span>
+                    <span>AI Agent</span>
+                    <span>Automation</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>联系我</h2>
+        <p class="contact-intro">欢迎交流 AI、编程、网站开发与学习。</p>
+
+        <a href="mailto:zhijianghuang419@gmail.com" class="contact-email">zhijianghuang419@gmail.com</a>
+
+        <div class="contact-links">
+            <a href="https://github.com/zhijianghuang419-debug" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+
+        <button class="contact-coming-soon" type="button" disabled>AI 咨询服务 · 即将开放</button>
+    </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Coco</p>
+        <p>持续学习 · 持续创造</p>
+    </footer>
+
+    <aside class="ai-chat" aria-label="AI 聊天助手">
+        <section class="ai-chat-window" id="ai-chat-window" aria-hidden="true" aria-labelledby="ai-chat-title">
+            <header class="ai-chat-header">
+                <h2 id="ai-chat-title">🤖 Coco AI</h2>
+                <button class="ai-chat-close" type="button" aria-label="关闭聊天窗口">×</button>
+            </header>
+
+            <div class="ai-chat-content">
+                <div class="ai-chat-message">
+                    <p>你好，我是 Coco AI。</p>
+                    <p>欢迎来到我的网站。</p>
+                </div>
+            </div>
+
+            <div class="ai-chat-input">
+                <input type="text" placeholder="输入消息…" aria-label="输入消息">
+                <button type="button" aria-label="发送消息">↑</button>
+            </div>
+        </section>
+
+        <button class="ai-chat-toggle" type="button" aria-label="打开 AI 聊天助手" aria-expanded="false" aria-controls="ai-chat-window">
+            <span aria-hidden="true">💬</span>
+        </button>
+    </aside>
+
+<script src="script.js"></script>
 </body>
 </html>
