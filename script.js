@@ -7,6 +7,7 @@ const chatContent = document.querySelector(".ai-chat-content");
 
 const mascotDoll = document.querySelector(".hero-mascot-doll");
 const mascotRoot = document.getElementById("hero-mascot");
+const mascotTilt = document.querySelector(".hero-mascot-tilt");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 let mascotIdleTimer = null;
@@ -51,6 +52,35 @@ if (mascotDoll) {
 
     mascotRoot?.addEventListener("mouseenter", playMascotGreeting);
     mascotRoot?.addEventListener("focusin", playMascotGreeting);
+}
+
+function setMascotTilt(xRatio, yRatio) {
+    if (!mascotTilt) {
+        return;
+    }
+
+    mascotTilt.style.setProperty("--mascot-tilt-y", `${xRatio * 16}deg`);
+    mascotTilt.style.setProperty("--mascot-tilt-x", `${-yRatio * 12}deg`);
+}
+
+function resetMascotTilt() {
+    if (!mascotTilt) {
+        return;
+    }
+
+    mascotTilt.style.setProperty("--mascot-tilt-y", "0deg");
+    mascotTilt.style.setProperty("--mascot-tilt-x", "0deg");
+}
+
+if (mascotRoot && mascotTilt && !prefersReducedMotion) {
+    mascotRoot.addEventListener("mousemove", (event) => {
+        const rect = mascotRoot.getBoundingClientRect();
+        const xRatio = (event.clientX - rect.left) / rect.width - 0.5;
+        const yRatio = (event.clientY - rect.top) / rect.height - 0.5;
+        setMascotTilt(xRatio, yRatio);
+    });
+
+    mascotRoot.addEventListener("mouseleave", resetMascotTilt);
 }
 
 const chatHistory = [];
