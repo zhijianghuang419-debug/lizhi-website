@@ -734,6 +734,47 @@ nav a:hover {
     color: #fff;
 }
 
+.ai-chat-message-loading p {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    min-height: 20px;
+}
+
+.ai-chat-message-loading span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #86868b;
+    animation: chat-dot 1.2s infinite ease-in-out;
+}
+
+.ai-chat-message-loading span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.ai-chat-message-loading span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes chat-dot {
+    0%, 80%, 100% {
+        opacity: 0.35;
+        transform: translateY(0);
+    }
+
+    40% {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+}
+
+.ai-chat-input input:disabled,
+.ai-chat-input button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .ai-chat-input {
     display: flex;
     gap: 10px;
