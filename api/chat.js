@@ -1,9 +1,11 @@
-const ALLOWED_ORIGINS = new Set([
+const STATIC_ALLOWED_ORIGINS = new Set([
     "https://lizhi-website.vercel.app",
     "http://localhost:8000",
     "http://localhost:3000",
     "http://127.0.0.1:8000",
 ]);
+
+const VERCEL_ORIGIN_PATTERN = /^https:\/\/lizhi-website(?:-[a-z0-9-]+)*\.vercel\.app$/;
 
 const MAX_MESSAGES = 12;
 const MAX_MESSAGE_LENGTH = 500;
@@ -23,22 +25,68 @@ const SYSTEM_PROMPT = `你是 Coco AI，Coco 个人网站上的智能助手。
 - 涉及合作、报价或定制开发，引导访客发邮件联系
 - 你是网站助手，聚焦 Coco 的服务和 AI 实践话题，避免无关闲聊`;
 
+function isAllowedOrigin(origin) {
+    if (!origin) {
+        return false;
+    }
+
+    if (STATIC_ALLOWED_ORIGINS.has(origin)) {
+        return true;
+    }
+
+    if (VERCEL_ORIGIN_PATTERN.test(origin)) {
+        return true;
+    }
+
+    const customSiteUrl = process.env.SITE_URL;
+    if (customSiteUrl) {
+        const normalized = customSiteUrl.replace(/\/$/, "");
+        if (origin === normalized) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function originFromHost(host) {
+    if (!host) {
+        return null;
+    }
+
+    const httpsOrigin = `https://${host}`;
+    if (isAllowedOrigin(httpsOrigin)) {
+        return httpsOrigin;
+    }
+
+    const httpOrigin = `http://${host}`;
+    if (isAllowedOrigin(httpOrigin)) {
+        return httpOrigin;
+    }
+
+    return null;
+}
+
 function getAllowedOrigin(req) {
     const origin = req.headers.origin;
-    if (origin && ALLOWED_ORIGINS.has(origin)) {
+    if (isAllowedOrigin(origin)) {
         return origin;
     }
 
     const referer = req.headers.referer;
     if (referer) {
-        for (const allowed of ALLOWED_ORIGINS) {
-            if (referer.startsWith(allowed)) {
-                return allowed;
+        try {
+            const refererOrigin = new URL(referer).origin;
+            if (isAllowedOrigin(refererOrigin)) {
+                return refererOrigin;
             }
+        } catch {
+            // Ignore invalid referer values.
         }
     }
 
-    return null;
+    // Same-origin browser requests may omit Origin; allow trusted hosts.
+    return originFromHost(req.headers.host);
 }
 
 function sanitizeMessages(messages) {
@@ -81,7 +129,9 @@ export default async function handler(req, res) {
     }
 
     if (!allowedOrigin) {
-        return res.status(403).json({ error: "Forbidden" });
+        return res.status(403).json({
+            error: "请求来源未授权，请通过官网页面使用助手。",
+        });
     }
 
     res.setHeader("Access-Control-Allow-Origin", allowedOrigin);

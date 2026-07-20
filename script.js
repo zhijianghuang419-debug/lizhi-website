@@ -90,7 +90,10 @@ async function sendMessage() {
         loadingMessage.remove();
 
         if (!response.ok) {
-            throw new Error(data.error || "请求失败");
+            const fallbackMessage = response.status === 403
+                ? "助手暂时无法从当前页面访问，请刷新后重试。"
+                : "请求失败，请稍后再试。";
+            throw new Error(data.error || fallbackMessage);
         }
 
         chatHistory.push({ role: "assistant", content: data.reply });
