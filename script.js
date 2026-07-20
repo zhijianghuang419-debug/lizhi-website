@@ -59,8 +59,8 @@ function setMascotTilt(xRatio, yRatio) {
         return;
     }
 
-    mascotTilt.style.setProperty("--mascot-tilt-y", `${xRatio * 16}deg`);
-    mascotTilt.style.setProperty("--mascot-tilt-x", `${-yRatio * 12}deg`);
+    mascotTilt.style.setProperty("--mascot-shift-x", `${xRatio * 10}px`);
+    mascotTilt.style.setProperty("--mascot-shift-y", `${yRatio * 8}px`);
 }
 
 function resetMascotTilt() {
@@ -68,8 +68,8 @@ function resetMascotTilt() {
         return;
     }
 
-    mascotTilt.style.setProperty("--mascot-tilt-y", "0deg");
-    mascotTilt.style.setProperty("--mascot-tilt-x", "0deg");
+    mascotTilt.style.setProperty("--mascot-shift-x", "0px");
+    mascotTilt.style.setProperty("--mascot-shift-y", "0px");
 }
 
 if (mascotRoot && mascotTilt && !prefersReducedMotion) {

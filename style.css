@@ -24,7 +24,7 @@ main {
     max-width: 1120px;
     min-height: 440px;
     margin: 0 auto;
-    align-items: center;
+    align-items: end;
     text-align: left;
 }
 
@@ -58,179 +58,239 @@ main {
 }
 
 .hero-mascot {
-    width: min(100%, 340px);
-    aspect-ratio: 4 / 5;
+    position: relative;
+    width: min(100%, 360px);
+    min-height: 460px;
     justify-self: end;
-    perspective: 1200px;
+    align-self: end;
 }
 
-.hero-mascot-stage {
+.hero-mascot-room {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: visible;
+    min-height: 460px;
+}
+
+.hero-mascot-floor {
+    position: absolute;
+    left: -8%;
+    right: -8%;
+    bottom: 0;
+    height: 34%;
+    border-radius: 50% 50% 0 0 / 18% 18% 0 0;
+    background: linear-gradient(180deg, rgba(0, 113, 227, 0.04) 0%, rgba(0, 113, 227, 0.01) 100%);
+}
+
+.hero-mascot-floor::after {
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 8%;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, rgba(0, 113, 227, 0.12), transparent);
+    content: "";
+}
+
+.hero-mascot-desk {
+    position: absolute;
+    left: 4%;
+    bottom: 14%;
+    z-index: 1;
+    width: 42%;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+}
+
+.hero-mascot-mac {
+    position: relative;
+    width: 100%;
+}
+
+.hero-mascot-mac-screen {
+    position: relative;
+    width: 100%;
+    height: 52px;
+    border: 2px solid #d2d2d7;
+    border-bottom: 0;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(180deg, #fafafa 0%, #ececee 100%);
+    overflow: hidden;
+}
+
+.hero-mascot-mac-screen::after {
+    position: absolute;
+    inset: 6px 8px 0;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(180deg, #5eb4ff 0%, #0071e3 100%);
+    animation: mascot-screen 2.6s ease-in-out infinite;
+    content: "";
+}
+
+.hero-mascot-mac-base {
+    width: 108%;
+    height: 8px;
+    margin-left: -4%;
+    border-radius: 0 0 10px 10px;
+    background: #dedee3;
+}
+
+.hero-mascot-room:has(.is-idle) .hero-mascot-desk {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .hero-mascot-bubble {
     position: absolute;
-    top: 2%;
+    top: 6%;
     left: 0;
     z-index: 4;
     margin: 0;
-    padding: 8px 12px;
-    border-radius: 14px;
+    max-width: 78%;
+    padding: 10px 14px;
+    border-radius: 16px;
     background: #fff;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
     color: #1d1d1f;
     font-size: 14px;
     font-weight: 600;
+    line-height: 1.45;
+    text-align: left;
     opacity: 0;
-    transform: translateY(8px) scale(0.92);
+    transform: translateY(10px) scale(0.94);
     transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .hero-mascot-bubble::after {
     position: absolute;
-    left: 18px;
-    bottom: -6px;
-    width: 12px;
-    height: 12px;
+    left: 22px;
+    bottom: -7px;
+    width: 14px;
+    height: 14px;
     background: #fff;
     transform: rotate(45deg);
     content: "";
 }
 
-.hero-mascot-stage:has(.is-greeting) .hero-mascot-bubble {
+.hero-mascot-room:has(.is-greeting) .hero-mascot-bubble {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
 
-.hero-mascot-scene {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-}
-
-.hero-mascot-shadow {
+.hero-mascot-feet-shadow {
     position: absolute;
     left: 50%;
-    bottom: 4%;
+    bottom: 11%;
     z-index: 0;
-    width: 58%;
-    height: 14%;
+    width: 46%;
+    height: 10%;
     border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0) 72%);
-    transform: translateX(-50%) rotateX(72deg);
-    transform-origin: center;
-    filter: blur(2px);
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0) 72%);
+    transform: translateX(-50%);
+    filter: blur(1px);
     transition: transform 0.7s ease, opacity 0.7s ease;
 }
 
 .hero-mascot-doll {
     position: absolute;
-    inset: 6% 0 0;
-    z-index: 1;
-    transform-style: preserve-3d;
-    transition: transform 0.75s cubic-bezier(0.34, 1.2, 0.64, 1);
+    left: 50%;
+    bottom: 8%;
+    z-index: 2;
+    width: 72%;
+    transform: translateX(-50%);
+    transform-origin: center bottom;
+    transition: transform 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 .hero-mascot-tilt {
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transform: rotateY(var(--mascot-tilt-y, 0deg)) rotateX(var(--mascot-tilt-x, 0deg));
-    transition: transform 0.18s ease-out;
+    transform: translate(
+        var(--mascot-shift-x, 0px),
+        var(--mascot-shift-y, 0px)
+    );
+    transition: transform 0.2s ease-out;
 }
 
 .hero-mascot-figure {
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center bottom;
-    transform: translateZ(36px);
-    filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.24));
+    height: auto;
+    transform-origin: center bottom;
 }
 
 .hero-mascot-doll.is-greeting {
-    transform: rotateY(-6deg) rotateX(-5deg) translateY(-14px) translateZ(28px) scale(1.04);
+    transform: translateX(-50%) translateY(-18px) scale(1.04);
+    animation: mascot-greet-alive 0.8s ease-out 1;
 }
 
-.hero-mascot-scene:has(.is-greeting) .hero-mascot-shadow {
-    transform: translateX(-50%) rotateX(72deg) scale(0.88);
-    opacity: 0.72;
+.hero-mascot-room:has(.is-greeting) .hero-mascot-feet-shadow {
+    transform: translateX(-50%) scale(0.86);
+    opacity: 0.65;
 }
 
 .hero-mascot-doll.is-idle {
-    transform: rotateY(-16deg) rotateX(7deg) translateZ(0);
-    animation: mascot-idle-float 4.2s ease-in-out infinite;
+    transform: translateX(-42%) translateY(0) scale(0.96);
+    animation: mascot-live-breathe 3.8s ease-in-out infinite;
 }
 
-.hero-mascot-scene:has(.is-idle) .hero-mascot-shadow {
-    animation: mascot-shadow-pulse 4.2s ease-in-out infinite;
+.hero-mascot-room:has(.is-idle) .hero-mascot-feet-shadow {
+    animation: mascot-shadow-breathe 3.8s ease-in-out infinite;
 }
 
-.hero-mascot-wave {
-    position: absolute;
-    top: 18%;
-    right: 4%;
-    z-index: 3;
-    font-size: clamp(28px, 7vw, 38px);
-    line-height: 1;
-    opacity: 0;
-    transform: translateZ(48px) rotate(0deg) scale(0.85);
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12));
-    pointer-events: none;
+@keyframes mascot-greet-alive {
+    0% {
+        transform: translateX(-50%) translateY(8px) scale(0.98);
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-18px) scale(1.04);
+    }
 }
 
-.hero-mascot-stage:has(.is-greeting) .hero-mascot-wave {
-    opacity: 1;
-    animation: mascot-hand-wave 0.75s ease-in-out 3;
-}
-
-@keyframes mascot-hand-wave {
+@keyframes mascot-live-breathe {
     0%, 100% {
-        transform: translateZ(48px) rotate(0deg) scale(1);
+        transform: translateX(-42%) translateY(0) scale(0.96);
     }
 
     50% {
-        transform: translateZ(48px) rotate(18deg) scale(1.05);
+        transform: translateX(-42%) translateY(-5px) scale(0.965);
     }
 }
 
-@keyframes mascot-idle-float {
+@keyframes mascot-shadow-breathe {
     0%, 100% {
-        transform: rotateY(-16deg) rotateX(7deg) translateY(0);
-    }
-
-    50% {
-        transform: rotateY(-12deg) rotateX(5deg) translateY(-10px);
-    }
-}
-
-@keyframes mascot-shadow-pulse {
-    0%, 100% {
-        transform: translateX(-50%) rotateX(72deg) scale(1);
+        transform: translateX(-50%) scale(1);
         opacity: 1;
     }
 
     50% {
-        transform: translateX(-50%) rotateX(72deg) scale(0.9);
+        transform: translateX(-50%) scale(0.92);
+        opacity: 0.82;
+    }
+}
+
+@keyframes mascot-screen {
+    0%, 100% {
         opacity: 0.78;
+    }
+
+    50% {
+        opacity: 1;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .hero-mascot-doll,
     .hero-mascot-doll.is-idle,
-    .hero-mascot-scene:has(.is-idle) .hero-mascot-shadow,
-    .hero-mascot-wave {
+    .hero-mascot-room:has(.is-idle) .hero-mascot-feet-shadow,
+    .hero-mascot-mac-screen::after {
         animation: none !important;
     }
 
     .hero-mascot-doll.is-idle {
-        transform: rotateY(-12deg) rotateX(5deg);
+        transform: translateX(-42%) scale(0.96);
     }
 }
 
@@ -974,14 +1034,12 @@ nav a:hover {
         grid-template-columns: 1fr;
         gap: 52px;
         min-height: auto;
-    }
-
-    .hero-content {
-        max-width: 720px;
+        align-items: center;
     }
 
     .hero-mascot {
-        width: min(72vw, 320px);
+        width: min(78vw, 340px);
+        min-height: 420px;
         justify-self: center;
     }
 
