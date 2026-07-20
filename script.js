@@ -5,6 +5,54 @@ const chatInput = document.querySelector(".ai-chat-input input");
 const chatSend = document.querySelector(".ai-chat-input button");
 const chatContent = document.querySelector(".ai-chat-content");
 
+const mascotDoll = document.querySelector(".hero-mascot-doll");
+const mascotRoot = document.getElementById("hero-mascot");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+let mascotIdleTimer = null;
+let mascotGreetingAgain = false;
+
+function setMascotState(state) {
+    if (!mascotDoll) {
+        return;
+    }
+
+    mascotDoll.classList.remove("is-greeting", "is-idle");
+    mascotDoll.classList.add(state === "greeting" ? "is-greeting" : "is-idle");
+}
+
+function scheduleMascotIdle(delayMs) {
+    if (mascotIdleTimer) {
+        clearTimeout(mascotIdleTimer);
+    }
+
+    mascotIdleTimer = window.setTimeout(() => {
+        setMascotState("idle");
+        mascotGreetingAgain = false;
+    }, delayMs);
+}
+
+function playMascotGreeting() {
+    if (!mascotDoll || mascotGreetingAgain) {
+        return;
+    }
+
+    mascotGreetingAgain = true;
+    setMascotState("greeting");
+    scheduleMascotIdle(prefersReducedMotion ? 1200 : 2800);
+}
+
+if (mascotDoll) {
+    if (prefersReducedMotion) {
+        setMascotState("idle");
+    } else {
+        playMascotGreeting();
+    }
+
+    mascotRoot?.addEventListener("mouseenter", playMascotGreeting);
+    mascotRoot?.addEventListener("focusin", playMascotGreeting);
+}
+
 const chatHistory = [];
 let isSending = false;
 
