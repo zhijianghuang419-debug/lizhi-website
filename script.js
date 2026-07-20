@@ -86,12 +86,18 @@ async function sendMessage() {
             body: JSON.stringify({ messages: chatHistory }),
         });
 
-        const data = await response.json();
+        let data = {};
+        try {
+            data = await response.json();
+        } catch {
+            data = {};
+        }
+
         loadingMessage.remove();
 
         if (!response.ok) {
             const fallbackMessage = response.status === 403
-                ? "助手暂时无法从当前页面访问，请刷新后重试。"
+                ? "助手暂时无法访问，请确认使用官网地址打开并重试。"
                 : "请求失败，请稍后再试。";
             throw new Error(data.error || fallbackMessage);
         }

@@ -25,8 +25,47 @@ const SYSTEM_PROMPT = `你是 Coco AI，Coco 个人网站上的智能助手。
 - 涉及合作、报价或定制开发，引导访客发邮件联系
 - 你是网站助手，聚焦 Coco 的服务和 AI 实践话题，避免无关闲聊`;
 
+function normalizeHost(host) {
+    if (!host) {
+        return "";
+    }
+
+    return host.split(",")[0].trim().split(":")[0].toLowerCase();
+}
+
+function isAllowedHost(host) {
+    const normalizedHost = normalizeHost(host);
+
+    if (!normalizedHost) {
+        return false;
+    }
+
+    if (
+        normalizedHost === "lizhi-website.vercel.app" ||
+        normalizedHost.startsWith("lizhi-website.") ||
+        normalizedHost.endsWith(".vercel.app") && normalizedHost.includes("lizhi-website")
+    ) {
+        return true;
+    }
+
+    if (normalizedHost === "localhost" || normalizedHost === "127.0.0.1") {
+        return true;
+    }
+
+    const customSiteUrl = process.env.SITE_URL;
+    if (customSiteUrl) {
+        try {
+            return normalizeHost(new URL(customSiteUrl).host) === normalizedHost;
+        } catch {
+            return false;
+        }
+    }
+
+    return false;
+}
+
 function isAllowedOrigin(origin) {
-    if (!origin) {
+    if (!origin || origin === "null") {
         return false;
     }
 
@@ -38,33 +77,24 @@ function isAllowedOrigin(origin) {
         return true;
     }
 
-    const customSiteUrl = process.env.SITE_URL;
-    if (customSiteUrl) {
-        const normalized = customSiteUrl.replace(/\/$/, "");
-        if (origin === normalized) {
-            return true;
-        }
+    try {
+        return isAllowedHost(new URL(origin).host);
+    } catch {
+        return false;
     }
-
-    return false;
 }
 
 function originFromHost(host) {
-    if (!host) {
+    const normalizedHost = normalizeHost(host);
+    if (!isAllowedHost(normalizedHost)) {
         return null;
     }
 
-    const httpsOrigin = `https://${host}`;
-    if (isAllowedOrigin(httpsOrigin)) {
-        return httpsOrigin;
+    if (normalizedHost === "localhost" || normalizedHost === "127.0.0.1") {
+        return `http://${normalizedHost}:8000`;
     }
 
-    const httpOrigin = `http://${host}`;
-    if (isAllowedOrigin(httpOrigin)) {
-        return httpOrigin;
-    }
-
-    return null;
+    return `https://${normalizedHost}`;
 }
 
 function getAllowedOrigin(req) {
@@ -85,8 +115,8 @@ function getAllowedOrigin(req) {
         }
     }
 
-    // Same-origin browser requests may omit Origin; allow trusted hosts.
-    return originFromHost(req.headers.host);
+    const host = req.headers["x-forwarded-host"] || req.headers.host;
+    return originFromHost(host);
 }
 
 function sanitizeMessages(messages) {
