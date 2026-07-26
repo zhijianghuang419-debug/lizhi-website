@@ -110,18 +110,37 @@ async function sendMessage() {
         loadingMessage.remove();
 
         if (!response.ok) {
-            const fallbackMessage = response.status === 403
-                ? "助手暂时无法访问，请确认使用官网地址打开并重试。"
-                : "请求失败，请稍后再试。";
+            let fallbackMessage = "请求失败，请稍后再试。";
+            if (response.status === 403) {
+                fallbackMessage = "助手暂时无法访问，请确认打开的是 https://lizhi-website.vercel.app";
+            } else if (response.status === 503) {
+                fallbackMessage = "助手尚未配置完成，请稍后再试。";
+            } else if (response.status >= 500) {
+                fallbackMessage = "AI 服务暂时繁忙，请稍后再试一次。";
+            }
             throw new Error(data.error || fallbackMessage);
+        }
+
+        if (!data.reply) {
+            throw new Error("AI 没有返回有效回复，请再试一次。");
         }
 
         chatHistory.push({ role: "assistant", content: data.reply });
         appendMessage(data.reply, false);
     } catch (error) {
         loadingMessage.remove();
+
+        // Keep history clean so the next retry is not stuck on a failed turn.
+        if (chatHistory.length && chatHistory[chatHistory.length - 1].role === "user") {
+            chatHistory.pop();
+        }
+
+        const message = error?.message || "";
+        const isNetworkError = /failed to fetch|networkerror|load failed/i.test(message);
         appendMessage(
-            error.message || "发送失败，请稍后再试，或直接发邮件：zhijianghuang419@gmail.com"
+            isNetworkError
+                ? "网络连接失败，请确认打开的是 https://lizhi-website.vercel.app 后重试。"
+                : message || "发送失败，请稍后再试，或直接发邮件：zhijianghuang419@gmail.com"
         );
     } finally {
         setChatBusy(false);

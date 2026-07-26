@@ -2,7 +2,9 @@ const STATIC_ALLOWED_ORIGINS = new Set([
     "https://lizhi-website.vercel.app",
     "http://localhost:8000",
     "http://localhost:3000",
+    "http://localhost:8765",
     "http://127.0.0.1:8000",
+    "http://127.0.0.1:8765",
 ]);
 
 const VERCEL_ORIGIN_PATTERN = /^https:\/\/lizhi-website(?:-[a-z0-9-]+)*\.vercel\.app$/;
@@ -47,7 +49,7 @@ function isAllowedHost(host) {
     if (
         normalizedHost === "lizhi-website.vercel.app" ||
         normalizedHost.startsWith("lizhi-website.") ||
-        normalizedHost.endsWith(".vercel.app") && normalizedHost.includes("lizhi-website")
+        (normalizedHost.endsWith(".vercel.app") && normalizedHost.includes("lizhi-website"))
     ) {
         return true;
     }
@@ -123,6 +125,22 @@ function getAllowedOrigin(req) {
     return originFromHost(host);
 }
 
+function readRequestBody(req) {
+    if (req.body == null) {
+        return {};
+    }
+
+    if (typeof req.body === "string") {
+        try {
+            return JSON.parse(req.body);
+        } catch {
+            return null;
+        }
+    }
+
+    return req.body;
+}
+
 function sanitizeMessages(messages) {
     if (!Array.isArray(messages)) {
         return null;
@@ -132,7 +150,7 @@ function sanitizeMessages(messages) {
         .filter((item) => item && (item.role === "user" || item.role === "assistant"))
         .map((item) => ({
             role: item.role,
-            content: String(item.content).trim().slice(0, MAX_MESSAGE_LENGTH),
+            content: String(item.content ?? "").trim().slice(0, MAX_MESSAGE_LENGTH),
         }))
         .filter((item) => item.content.length > 0)
         .slice(-MAX_MESSAGES);
@@ -142,6 +160,62 @@ function sanitizeMessages(messages) {
     }
 
     return sanitized;
+}
+
+function extractReply(data) {
+    const message = data?.choices?.[0]?.message;
+    if (!message) {
+        return "";
+    }
+
+    if (typeof message.content === "string" && message.content.trim()) {
+        return message.content.trim();
+    }
+
+    if (Array.isArray(message.content)) {
+        const text = message.content
+            .map((part) => {
+                if (typeof part === "string") {
+                    return part;
+                }
+                return part?.text || part?.content || "";
+            })
+            .join("")
+            .trim();
+        if (text) {
+            return text;
+        }
+    }
+
+    return "";
+}
+
+async function callDeepSeek(apiKey, messages) {
+    const response = await fetch("https://api.deepseek.com/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+            model: "deepseek-v4-flash",
+            messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+            max_tokens: 500,
+            temperature: 0.7,
+            // V4 defaults to thinking mode; disable it for faster, cheaper chat replies.
+            thinking: { type: "disabled" },
+        }),
+    });
+
+    const rawText = await response.text();
+    let data = {};
+    try {
+        data = rawText ? JSON.parse(rawText) : {};
+    } catch {
+        data = {};
+    }
+
+    return { response, data, rawText };
 }
 
 export default async function handler(req, res) {
@@ -169,6 +243,7 @@ export default async function handler(req, res) {
     }
 
     res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+    res.setHeader("Cache-Control", "no-store");
 
     const apiKey = process.env.DEEPSEEK_API_KEY;
     if (!apiKey) {
@@ -177,41 +252,39 @@ export default async function handler(req, res) {
         });
     }
 
-    const messages = sanitizeMessages(req.body?.messages);
+    const body = readRequestBody(req);
+    if (body == null) {
+        return res.status(400).json({ error: "消息格式无效" });
+    }
+
+    const messages = sanitizeMessages(body.messages);
     if (!messages) {
         return res.status(400).json({ error: "消息格式无效" });
     }
 
     try {
-        const response = await fetch("https://api.deepseek.com/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${apiKey}`,
-            },
-            body: JSON.stringify({
-                // deepseek-chat was retired on 2026-07-24; v4-flash + thinking off matches the old chat behavior.
-                model: "deepseek-v4-flash",
-                messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-                max_tokens: 300,
-                temperature: 0.7,
-                thinking: { type: "disabled" },
-            }),
-        });
+        let result = await callDeepSeek(apiKey, messages);
 
-        if (!response.ok) {
-            console.error("DeepSeek API error:", response.status, await response.text());
+        // One retry for transient upstream failures.
+        if (!result.response.ok && [429, 500, 502, 503, 504].includes(result.response.status)) {
+            await new Promise((resolve) => setTimeout(resolve, 600));
+            result = await callDeepSeek(apiKey, messages);
+        }
+
+        if (!result.response.ok) {
+            console.error("DeepSeek API error:", result.response.status, result.rawText.slice(0, 500));
             return res.status(502).json({
-                error: "AI 服务暂时不可用，请稍后再试。",
+                error: "AI 服务暂时繁忙，请稍后再试一次。",
+                status: result.response.status,
             });
         }
 
-        const data = await response.json();
-        const reply = data.choices?.[0]?.message?.content?.trim();
+        const reply = extractReply(result.data);
 
         if (!reply) {
+            console.error("DeepSeek empty reply:", JSON.stringify(result.data).slice(0, 500));
             return res.status(502).json({
-                error: "AI 没有返回有效回复，请重试。",
+                error: "AI 没有返回有效回复，请再试一次。",
             });
         }
 
