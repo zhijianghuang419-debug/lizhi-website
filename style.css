@@ -24,7 +24,7 @@ main {
     max-width: 1120px;
     min-height: 440px;
     margin: 0 auto;
-    align-items: end;
+    align-items: center;
     text-align: left;
 }
 
@@ -57,240 +57,200 @@ main {
     line-height: 1.75;
 }
 
-.hero-mascot {
+.hero-avatar {
     position: relative;
-    width: min(100%, 360px);
-    min-height: 460px;
+    width: min(100%, 340px);
+    aspect-ratio: 1;
     justify-self: end;
-    align-self: end;
+    overflow: visible;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 34%;
+    background: linear-gradient(145deg, #fff 0%, #e8f2ff 100%);
+    box-shadow: 0 24px 60px rgba(0, 113, 227, 0.13);
+    animation: avatar-float 5.5s ease-in-out infinite;
 }
 
-.hero-mascot-room {
+.hero-avatar-frame {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 460px;
-}
-
-.hero-mascot-floor {
-    position: absolute;
-    left: -8%;
-    right: -8%;
-    bottom: 0;
-    height: 34%;
-    border-radius: 50% 50% 0 0 / 18% 18% 0 0;
-    background: linear-gradient(180deg, rgba(0, 113, 227, 0.04) 0%, rgba(0, 113, 227, 0.01) 100%);
-}
-
-.hero-mascot-floor::after {
-    position: absolute;
-    left: 12%;
-    right: 12%;
-    bottom: 8%;
-    height: 2px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, transparent, rgba(0, 113, 227, 0.12), transparent);
-    content: "";
-}
-
-.hero-mascot-desk {
-    position: absolute;
-    left: 4%;
-    bottom: 14%;
-    z-index: 1;
-    width: 42%;
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    pointer-events: none;
-}
-
-.hero-mascot-mac {
-    position: relative;
-    width: 100%;
-}
-
-.hero-mascot-mac-screen {
-    position: relative;
-    width: 100%;
-    height: 52px;
-    border: 2px solid #d2d2d7;
-    border-bottom: 0;
-    border-radius: 10px 10px 0 0;
-    background: linear-gradient(180deg, #fafafa 0%, #ececee 100%);
     overflow: hidden;
+    border-radius: inherit;
+    animation: avatar-greet 9s ease-in-out infinite;
 }
 
-.hero-mascot-mac-screen::after {
-    position: absolute;
-    inset: 6px 8px 0;
-    border-radius: 6px 6px 0 0;
-    background: linear-gradient(180deg, #5eb4ff 0%, #0071e3 100%);
-    animation: mascot-screen 2.6s ease-in-out infinite;
-    content: "";
-}
-
-.hero-mascot-mac-base {
-    width: 108%;
-    height: 8px;
-    margin-left: -4%;
-    border-radius: 0 0 10px 10px;
-    background: #dedee3;
-}
-
-.hero-mascot-room:has(.is-idle) .hero-mascot-desk {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.hero-mascot-bubble {
-    position: absolute;
-    top: 6%;
-    left: 0;
-    z-index: 4;
-    margin: 0;
-    max-width: 78%;
-    padding: 10px 14px;
-    border-radius: 16px;
-    background: #fff;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-    color: #1d1d1f;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.45;
-    text-align: left;
-    opacity: 0;
-    transform: translateY(10px) scale(0.94);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-.hero-mascot-bubble::after {
-    position: absolute;
-    left: 22px;
-    bottom: -7px;
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    transform: rotate(45deg);
-    content: "";
-}
-
-.hero-mascot-room:has(.is-greeting) .hero-mascot-bubble {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.hero-mascot-feet-shadow {
-    position: absolute;
-    left: 50%;
-    bottom: 11%;
-    z-index: 0;
-    width: 46%;
-    height: 10%;
-    border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0) 72%);
-    transform: translateX(-50%);
-    filter: blur(1px);
-    transition: transform 0.7s ease, opacity 0.7s ease;
-}
-
-.hero-mascot-doll {
-    position: absolute;
-    left: 50%;
-    bottom: 8%;
-    z-index: 2;
-    width: 72%;
-    transform: translateX(-50%);
-    transform-origin: center bottom;
-    transition: transform 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
-}
-
-.hero-mascot-tilt {
-    transform: translate(
-        var(--mascot-shift-x, 0px),
-        var(--mascot-shift-y, 0px)
-    );
-    transition: transform 0.2s ease-out;
-}
-
-.hero-mascot-figure {
+.hero-avatar img {
     display: block;
     width: 100%;
-    height: auto;
-    transform-origin: center bottom;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: center 70%;
 }
 
-.hero-mascot-doll.is-greeting {
-    transform: translateX(-50%) translateY(-18px) scale(1.04);
-    animation: mascot-greet-alive 0.8s ease-out 1;
+.hero-avatar-wink {
+    position: absolute;
+    top: 35.5%;
+    left: 36.5%;
+    width: 12%;
+    height: 6%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #dcc5ad 0%, #c9a88a 100%);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+    transform: scaleY(0);
+    transform-origin: center top;
+    pointer-events: none;
+    animation: avatar-wink 9s ease-in-out infinite;
 }
 
-.hero-mascot-room:has(.is-greeting) .hero-mascot-feet-shadow {
-    transform: translateX(-50%) scale(0.86);
-    opacity: 0.65;
+.hero-avatar-wave {
+    position: absolute;
+    right: -2%;
+    bottom: 10%;
+    font-size: clamp(34px, 8vw, 44px);
+    line-height: 1;
+    opacity: 0;
+    transform: rotate(0deg) scale(0.85);
+    transform-origin: 70% 85%;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12));
+    animation: avatar-wave 9s ease-in-out infinite;
 }
 
-.hero-mascot-doll.is-idle {
-    transform: translateX(-42%) translateY(0) scale(0.96);
-    animation: mascot-live-breathe 3.8s ease-in-out infinite;
-}
-
-.hero-mascot-room:has(.is-idle) .hero-mascot-feet-shadow {
-    animation: mascot-shadow-breathe 3.8s ease-in-out infinite;
-}
-
-@keyframes mascot-greet-alive {
-    0% {
-        transform: translateX(-50%) translateY(8px) scale(0.98);
-    }
-
-    100% {
-        transform: translateX(-50%) translateY(-18px) scale(1.04);
-    }
-}
-
-@keyframes mascot-live-breathe {
+@keyframes avatar-float {
     0%, 100% {
-        transform: translateX(-42%) translateY(0) scale(0.96);
+        transform: translateY(0);
     }
 
     50% {
-        transform: translateX(-42%) translateY(-5px) scale(0.965);
+        transform: translateY(-10px);
     }
 }
 
-@keyframes mascot-shadow-breathe {
-    0%, 100% {
-        transform: translateX(-50%) scale(1);
+@keyframes avatar-greet {
+    0%, 72%, 100% {
+        transform: rotate(0deg);
+    }
+
+    76% {
+        transform: rotate(-4deg);
+    }
+
+    80% {
+        transform: rotate(3deg);
+    }
+
+    84% {
+        transform: rotate(-2deg);
+    }
+
+    88% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes avatar-wink {
+    0%, 78%, 82%, 100% {
+        transform: scaleY(0);
+    }
+
+    80% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes avatar-wave {
+    0%, 73%, 100% {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.85);
+    }
+
+    75%, 90% {
         opacity: 1;
     }
 
-    50% {
-        transform: translateX(-50%) scale(0.92);
-        opacity: 0.82;
+    78% {
+        transform: rotate(18deg) scale(1);
+    }
+
+    82% {
+        transform: rotate(-6deg) scale(1);
+    }
+
+    86% {
+        transform: rotate(16deg) scale(1);
+    }
+
+    90% {
+        opacity: 0;
+        transform: rotate(10deg) scale(0.9);
     }
 }
 
-@keyframes mascot-screen {
+.hero-avatar:hover .hero-avatar-frame {
+    animation: avatar-greet-hover 0.9s ease-in-out;
+}
+
+.hero-avatar:hover .hero-avatar-wave {
+    animation: avatar-wave-hover 0.9s ease-in-out;
+}
+
+.hero-avatar:hover .hero-avatar-wink {
+    animation: avatar-wink-hover 0.9s ease-in-out;
+}
+
+@keyframes avatar-greet-hover {
     0%, 100% {
-        opacity: 0.78;
+        transform: rotate(0deg);
     }
 
-    50% {
+    30% {
+        transform: rotate(-5deg);
+    }
+
+    60% {
+        transform: rotate(3deg);
+    }
+}
+
+@keyframes avatar-wink-hover {
+    0%, 45%, 100% {
+        transform: scaleY(0);
+    }
+
+    25% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes avatar-wave-hover {
+    0%, 100% {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.85);
+    }
+
+    15%, 85% {
         opacity: 1;
+    }
+
+    35% {
+        transform: rotate(20deg) scale(1);
+    }
+
+    55% {
+        transform: rotate(-8deg) scale(1);
+    }
+
+    75% {
+        transform: rotate(18deg) scale(1);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .hero-mascot-doll,
-    .hero-mascot-doll.is-idle,
-    .hero-mascot-room:has(.is-idle) .hero-mascot-feet-shadow,
-    .hero-mascot-mac-screen::after {
+    .hero-avatar,
+    .hero-avatar-frame,
+    .hero-avatar-wink,
+    .hero-avatar-wave {
         animation: none !important;
-    }
-
-    .hero-mascot-doll.is-idle {
-        transform: translateX(-42%) scale(0.96);
     }
 }
 
@@ -1034,12 +994,14 @@ nav a:hover {
         grid-template-columns: 1fr;
         gap: 52px;
         min-height: auto;
-        align-items: center;
     }
 
-    .hero-mascot {
-        width: min(78vw, 340px);
-        min-height: 420px;
+    .hero-content {
+        max-width: 720px;
+    }
+
+    .hero-avatar {
+        width: min(72vw, 320px);
         justify-self: center;
     }
 
