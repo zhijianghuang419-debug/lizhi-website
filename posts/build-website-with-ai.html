@@ -24,6 +24,7 @@
       "headline": "我如何用 AI 从零搭建这个网站",
       "description": "不会写代码，也能上线一个 Apple 风格的个人网站。记录我用 Cursor 和 AI 协作完成搭建、迭代和部署的全过程。",
       "datePublished": "2026-07-19",
+      "dateModified": "2026-07-26",
       "author": {
         "@type": "Person",
         "name": "Coco",
@@ -33,7 +34,7 @@
     }
     </script>
 
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style.css?v=20260726-avatar-static">
 </head>
 <body>
 
@@ -56,18 +57,22 @@
             <header class="post-header">
                 <p class="section-label">Blog</p>
                 <h1>我如何用 AI 从零搭建这个网站</h1>
-                <p class="post-meta"><time datetime="2026-07-19">2026 年 7 月 19 日</time> · Coco</p>
+                <p class="post-meta">
+                    <time datetime="2026-07-19">2026 年 7 月 19 日</time>
+                    · 更新于 <time datetime="2026-07-26">7 月 26 日</time>
+                    · Coco
+                </p>
             </header>
 
             <div class="post-content">
                 <p>
                     我不是程序员。写这篇文章的时候，我学习 HTML 和 CSS 的时间并不长，
                     JavaScript 更是刚刚入门。但你现在看到的这个网站——Apple 风格的设计、
-                    响应式布局、右下角的 AI 聊天按钮——都是我完成的。
+                    响应式布局、右下角真正能对话的 Coco AI——都是我和 AI 一起完成的。
                 </p>
                 <p>
-                    准确地说，是我和 AI 一起完成的。这篇文章记录真实的过程，
-                    包括走通的部分和踩过的坑。
+                    这篇文章记录真实的过程，包括走通的部分和踩过的坑。
+                    后面我会按实际进度更新，避免内容落后于网站现状。
                 </p>
 
                 <h2>我的工具组合</h2>
@@ -76,6 +81,7 @@
                     <li><strong>HTML / CSS / JavaScript</strong>：网站本身只用了这三样，没有框架</li>
                     <li><strong>Git + GitHub</strong>：版本管理，每次改动都有记录，改坏了可以回退</li>
                     <li><strong>Vercel</strong>：部署平台，代码推送到 GitHub 后自动上线</li>
+                    <li><strong>DeepSeek API</strong>：驱动网站右下角的 Coco AI 助手</li>
                 </ul>
 
                 <h2>我是怎么和 AI 协作的</h2>
@@ -94,7 +100,8 @@
                     <li>先搭出静态的首页结构：导航、Hero 区、关于我</li>
                     <li>加入技能卡片和项目卡片</li>
                     <li>做左右分栏的 Hero，放上头像</li>
-                    <li>加 AI 聊天按钮和弹窗（目前是界面占位，真正的对话功能在计划中）</li>
+                    <li>上线 Coco AI 助手：从界面占位，到接上 DeepSeek API，再到处理模型升级与缓存问题</li>
+                    <li>补齐 SEO：favicon、Open Graph、结构化数据、robots.txt、sitemap</li>
                     <li>每一步都在手机和电脑上检查显示效果</li>
                 </ul>
 
@@ -105,9 +112,13 @@
                     还有一段永远不会用到的死代码。
                 </p>
                 <p>
-                    这给我的启示是：<strong>把 AI 当成能力很强但需要验收的合作者，
-                    而不是不会出错的机器。</strong>每次改动后自己在浏览器里点一遍、
-                    定期让 AI 复查整个项目，这两个习惯帮我避免了很多问题。
+                    上线之后也踩过坑：DeepSeek 停用旧模型名后，助手突然不可用；
+                    浏览器缓存让我以为新功能没部署成功。这些都提醒我：
+                    <strong>把 AI 当成能力很强但需要验收的合作者，而不是不会出错的机器。</strong>
+                </p>
+                <p>
+                    每次改动后自己在浏览器里点一遍、定期复查整个项目，
+                    这两个习惯帮我避免了很多问题。
                 </p>
 
                 <h2>部署比想象中简单</h2>
@@ -117,15 +128,24 @@
                     几十秒后改动就出现在线上。
                 </p>
 
+                <h2>已经完成的</h2>
+                <ul>
+                    <li>个人品牌官网：首页、关于、技能、项目、联系</li>
+                    <li>博客系统：博客列表 + 第一篇文章</li>
+                    <li>Coco AI：可在线对话的网站助手</li>
+                    <li>SEO 基础：favicon、OG 标签、结构化数据、sitemap、robots.txt</li>
+                </ul>
+
                 <h2>下一步</h2>
                 <ul>
-                    <li>完善 SEO 基础设施：favicon、Open Graph、结构化数据、sitemap</li>
-                    <li>持续写作，记录 AI、网站开发和 SEO 的实践</li>
-                    <li>开发真正能对话的 Coco AI 助手</li>
+                    <li>持续写作，记录 AI、网站开发、SEO / GEO 的真实实践</li>
+                    <li>给 Coco AI 接入知识库，让它更懂我的服务与经验</li>
+                    <li>把网站变成可验证的作品集，服务未来的 AI 咨询与官网搭建业务</li>
                 </ul>
                 <p>
                     如果你也想用 AI 搭建自己的网站，或者在过程中遇到了问题，
-                    欢迎<a href="../index.html#contact">邮件交流</a>。
+                    欢迎<a href="../index.html#contact">邮件交流</a>，
+                    也可以直接点开右下角的 Coco AI 先聊一聊。
                 </p>
             </div>
 
