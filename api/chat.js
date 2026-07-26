@@ -186,10 +186,12 @@ export default async function handler(req, res) {
                 Authorization: `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
-                model: "deepseek-chat",
+                // deepseek-chat was retired on 2026-07-24; v4-flash + thinking off matches the old chat behavior.
+                model: "deepseek-v4-flash",
                 messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
                 max_tokens: 300,
                 temperature: 0.7,
+                thinking: { type: "disabled" },
             }),
         });
 
