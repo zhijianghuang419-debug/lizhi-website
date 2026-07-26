@@ -12,6 +12,12 @@ const hasChat = Boolean(chatToggle && chatWindow && chatClose && chatInput && ch
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
+// Local static preview (python/http.server) has no /api/chat — call production API instead.
+const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const chatApiUrl = isLocalPreview
+    ? "https://lizhi-website.vercel.app/api/chat"
+    : "/api/chat";
+
 function setChatOpen(isOpen) {
     if (!hasChat) {
         return;
@@ -94,15 +100,16 @@ async function sendMessage() {
     const loadingMessage = appendLoadingMessage();
 
     try {
-        const response = await fetch("/api/chat", {
+        const response = await fetch(chatApiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ messages: chatHistory }),
         });
 
+        const rawText = await response.text();
         let data = {};
         try {
-            data = await response.json();
+            data = rawText ? JSON.parse(rawText) : {};
         } catch {
             data = {};
         }
@@ -115,8 +122,12 @@ async function sendMessage() {
                 fallbackMessage = "助手暂时无法访问，请确认打开的是 https://lizhi-website.vercel.app";
             } else if (response.status === 503) {
                 fallbackMessage = "助手尚未配置完成，请稍后再试。";
+            } else if (response.status === 501 || response.status === 404) {
+                fallbackMessage = "本地预览无法直接调用助手，请打开 https://lizhi-website.vercel.app 再试。";
             } else if (response.status >= 500) {
                 fallbackMessage = "AI 服务暂时繁忙，请稍后再试一次。";
+            } else if (!rawText || rawText.trim().startsWith("<")) {
+                fallbackMessage = "助手接口未响应，请打开 https://lizhi-website.vercel.app 再试。";
             }
             throw new Error(data.error || fallbackMessage);
         }
