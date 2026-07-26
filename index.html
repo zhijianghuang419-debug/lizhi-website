@@ -37,14 +37,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260726-no-avatar">
+    <link rel="stylesheet" href="style.css?v=20260726-awwwards">
 </head>
 <body>
 
+    <div class="page-noise" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+
     <nav class="site-nav">
-        <div class="logo">
-            <a href="#">Coco</a>
-        </div>
+        <div class="logo"><a href="#">Coco</a></div>
         <div class="menu">
             <a href="#about">关于</a>
             <a href="#services">服务</a>
@@ -52,64 +54,67 @@
             <a href="blog.html">博客</a>
             <a href="#contact">联系</a>
         </div>
-        <a href="#services" class="nav-cta">咨询服务</a>
+        <a href="#services" class="nav-cta magnetic">现已可咨询</a>
     </nav>
 
     <main>
 
         <section class="hero" aria-label="首页主视觉">
-            <div class="hero-atmosphere" aria-hidden="true"></div>
-            <div class="hero-inner">
-                <div class="hero-copy">
-                    <p class="hero-brand reveal" data-reveal>Coco</p>
-                    <h1 class="reveal" data-reveal>
-                        用 AI，帮个人和企业<br>
-                        <em>真正提效</em>
-                    </h1>
-                    <p class="hero-description reveal" data-reveal>
-                        我是 AI 实践者。做官网、做 SEO / GEO、设计 AI 工作流——
-                        把工具变成可验证的结果，而不是停留在概念。
-                    </p>
-                    <div class="hero-actions reveal" data-reveal>
-                        <a href="#services" class="btn-primary">查看服务</a>
-                        <a href="#contact" class="btn-secondary">联系我</a>
-                    </div>
-                    <ul class="hero-tags reveal" data-reveal>
-                        <li>官网搭建</li>
-                        <li>SEO / GEO</li>
-                        <li>AI 工作流</li>
-                        <li>效率咨询</li>
-                    </ul>
-                </div>
+            <div class="hero-stage" aria-hidden="true">
+                <div class="orb orb-a" data-parallax="0.03"></div>
+                <div class="orb orb-b" data-parallax="0.06"></div>
+                <div class="orb orb-c" data-parallax="0.04"></div>
+                <p class="hero-watermark">COCO</p>
             </div>
-            <p class="hero-scroll" aria-hidden="true">Scroll</p>
+
+            <div class="hero-inner">
+                <p class="hero-kicker reveal" data-reveal>
+                    <span class="pulse-dot"></span>
+                    AI 实践者 · Available for projects
+                </p>
+                <h1 class="hero-title">
+                    <span class="hero-line reveal" data-reveal>用 AI，帮个人</span>
+                    <span class="hero-line reveal" data-reveal>和企业 <em>真正提效</em></span>
+                </h1>
+                <p class="hero-description reveal" data-reveal>
+                    官网搭建 · SEO / GEO · AI 工作流设计。
+                    不卖焦虑，只做能上线、能验证、能积累的结果。
+                </p>
+                <div class="hero-actions reveal" data-reveal>
+                    <a href="#services" class="btn-primary magnetic">查看服务</a>
+                    <a href="#contact" class="btn-secondary magnetic">开始合作</a>
+                    <button class="btn-ghost magnetic" type="button" data-open-chat>和 Coco AI 聊聊</button>
+                </div>
+                <ul class="hero-metrics reveal" data-reveal>
+                    <li><strong>03</strong><span>可咨询服务</span></li>
+                    <li><strong>¥1k+</strong><span>官网起步</span></li>
+                    <li><strong>24/7</strong><span>AI 助手在线</span></li>
+                </ul>
+            </div>
+
+            <div class="hero-footer">
+                <p>Scroll to explore</p>
+                <div class="scroll-line" aria-hidden="true"></div>
+            </div>
         </section>
 
         <section class="marquee-strip" aria-hidden="true">
             <div class="marquee-track">
-                <span>AI Practice</span><span>Website</span><span>SEO</span><span>GEO</span><span>Automation</span>
-                <span>AI Practice</span><span>Website</span><span>SEO</span><span>GEO</span><span>Automation</span>
+                <span>AI Practice</span><span>Website Build</span><span>SEO</span><span>GEO</span><span>Automation</span><span>Brand Systems</span>
+                <span>AI Practice</span><span>Website Build</span><span>SEO</span><span>GEO</span><span>Automation</span><span>Brand Systems</span>
             </div>
         </section>
 
         <section id="about" class="about">
             <div class="about-grid">
-                <div class="about-sticky reveal" data-reveal>
-                    <p class="section-label">About</p>
-                    <h2>不是卖课，是把 AI 用到真场景</h2>
+                <div class="about-sticky">
+                    <p class="section-label reveal" data-reveal>About</p>
+                    <h2 class="reveal" data-reveal>把 AI 从概念，变成你业务里真的能用的东西</h2>
                 </div>
                 <div class="about-copy">
-                    <p class="reveal" data-reveal>
-                        我是 Coco。我相信 AI 不只是聊天工具，而是普通人放大能力的杠杆。
-                    </p>
-                    <p class="reveal" data-reveal>
-                        我专注于把 AI 用在真实场景里——搭建网站、优化 SEO、设计自动化工作流，
-                        帮助个人和中小企业切实提升效率。
-                    </p>
-                    <p class="reveal" data-reveal>
-                        方式很简单：学习 → 实践 → 总结 → 优化 → 输出。
-                        这个网站本身，就是我用 AI 完成的第一个作品。
-                    </p>
+                    <p class="reveal" data-reveal>我是 Coco。我相信 AI 不是聊天玩具，而是普通人放大能力的杠杆。</p>
+                    <p class="reveal" data-reveal>我帮个人和中小企业做三件事：建立可信官网、被搜索与 AI 正确理解、用 AI 把重复工作变高效。</p>
+                    <p class="reveal" data-reveal>方式很简单：学习 → 实践 → 总结 → 优化 → 输出。这个网站，就是我用 AI 完成的第一个公开作品。</p>
                 </div>
             </div>
         </section>
@@ -117,8 +122,8 @@
         <section id="services" class="services" aria-labelledby="services-title">
             <div class="section-heading reveal" data-reveal>
                 <p class="section-label">Services</p>
-                <h2 id="services-title">三项服务，现已可咨询</h2>
-                <p>帮你把想法做成能上线、能获客、能持续优化的结果。</p>
+                <h2 id="services-title">三项服务，直接可聊</h2>
+                <p>先把范围说清楚，再谈合作。不合适我会直说。</p>
             </div>
 
             <div class="service-list">
@@ -167,43 +172,50 @@
 
             <div class="services-foot reveal" data-reveal>
                 <p>适合想建立个人品牌、需要官网，或想用 AI 提效却不知从哪开始的个人与小团队。</p>
-                <a href="mailto:zhijianghuang419@gmail.com" class="btn-primary">发邮件咨询</a>
+                <a href="mailto:zhijianghuang419@gmail.com" class="btn-primary magnetic">发邮件咨询</a>
             </div>
         </section>
 
         <section id="work" class="work">
             <div class="section-heading reveal" data-reveal>
                 <p class="section-label">Selected Work</p>
-                <h2>正在构建的作品</h2>
-                <p>用作品证明能力，而不是只谈概念。</p>
+                <h2>作品与正在构建的事</h2>
+                <p>用结果说话，而不是只谈概念。</p>
             </div>
 
             <div class="work-list">
                 <article class="work-item reveal" data-reveal>
                     <span class="work-index">01</span>
                     <div>
-                        <h3>Coco 个人网站</h3>
-                        <p>品牌官网 · HTML / CSS / JavaScript · Vercel</p>
+                        <h3>Coco 个人品牌官网</h3>
+                        <p>定位、设计、开发、部署一体化</p>
                     </div>
-                    <span class="work-status">持续迭代</span>
+                    <span class="work-status">Live</span>
                 </article>
                 <article class="work-item reveal" data-reveal>
                     <span class="work-index">02</span>
                     <div>
-                        <h3>Coco AI</h3>
-                        <p>网站智能助手 · DeepSeek · 可解答服务与实践问题</p>
+                        <h3>Coco AI 助手</h3>
+                        <p>DeepSeek 驱动，解答服务与实践问题</p>
                     </div>
-                    <span class="work-status">已上线</span>
+                    <span class="work-status">Live</span>
                 </article>
                 <article class="work-item reveal" data-reveal>
                     <span class="work-index">03</span>
                     <div>
-                        <h3>AI 实践记录</h3>
-                        <p>博客写作 · 记录搭建、SEO 与 AI 协作真实过程</p>
+                        <h3>AI 实践博客</h3>
+                        <p>记录真实搭建、SEO 与协作过程</p>
                     </div>
-                    <a class="work-link" href="blog.html">阅读博客 →</a>
+                    <a class="work-link" href="blog.html">阅读 →</a>
                 </article>
             </div>
+        </section>
+
+        <section class="statement">
+            <p class="statement-text reveal" data-reveal>
+                高级感不是堆特效。<br>
+                是让人 <em>三秒内明白你是谁</em>，并愿意继续聊。
+            </p>
         </section>
 
         <section class="blog-band">
@@ -211,14 +223,14 @@
                 <p class="section-label">Blog</p>
                 <h2>不追热点，只写真实实践</h2>
                 <p>从用 AI 搭网站，到上线助手与 SEO——把踩过的坑也写清楚。</p>
-                <a href="blog.html" class="btn-secondary">进入博客</a>
+                <a href="blog.html" class="btn-secondary magnetic">进入博客</a>
             </div>
         </section>
 
         <section id="contact" class="contact">
             <div class="contact-panel reveal" data-reveal>
                 <p class="section-label">Contact</p>
-                <h2>有想法，就从一封邮件开始</h2>
+                <h2>下一封邮件，<em>可能就是合作的开始</em></h2>
                 <p>告诉我你的身份、目标和预算区间。匹配就推进，不合适我会直说。</p>
                 <a href="mailto:zhijianghuang419@gmail.com" class="contact-email">zhijianghuang419@gmail.com</a>
                 <div class="contact-links">
@@ -233,7 +245,7 @@
 
     <footer class="footer">
         <p>© 2026 Coco</p>
-        <p>持续学习 · 持续创造</p>
+        <p>Stay Learning · Stay Creating</p>
     </footer>
 
     <aside class="ai-chat" aria-label="AI 聊天助手">
@@ -242,20 +254,17 @@
                 <h2 id="ai-chat-title">Coco AI</h2>
                 <button class="ai-chat-close" type="button" aria-label="关闭聊天窗口">×</button>
             </header>
-
             <div class="ai-chat-content">
                 <div class="ai-chat-message">
                     <p>你好，我是 Coco AI。</p>
                     <p>可以问我服务、官网搭建或 AI 实践相关的问题。</p>
                 </div>
             </div>
-
             <div class="ai-chat-input">
                 <input type="text" placeholder="输入消息…" aria-label="输入消息">
                 <button type="button" aria-label="发送消息">↑</button>
             </div>
         </section>
-
         <button class="ai-chat-toggle" type="button" aria-label="打开 AI 聊天助手" aria-expanded="false" aria-controls="ai-chat-window">
             <span aria-hidden="true">💬</span>
         </button>
@@ -263,6 +272,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    <script src="script.js?v=20260726-no-avatar"></script>
+    <script src="script.js?v=20260726-awwwards"></script>
 </body>
 </html>

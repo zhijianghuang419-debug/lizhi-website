@@ -9,6 +9,12 @@ const openChatButtons = document.querySelectorAll("[data-open-chat]");
 const chatHistory = [];
 let isSending = false;
 const hasChat = Boolean(chatToggle && chatWindow && chatClose && chatInput && chatSend && chatContent);
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+if (isTouchDevice) {
+    document.body.classList.add("is-touch");
+}
 
 function setChatOpen(isOpen) {
     if (!hasChat) {
@@ -138,8 +144,85 @@ if (hasChat) {
     });
 }
 
+function initCursor() {
+    if (isTouchDevice || prefersReducedMotion) {
+        return;
+    }
+
+    const cursor = document.querySelector(".cursor");
+    const cursorDot = document.querySelector(".cursor-dot");
+    if (!cursor || !cursorDot) {
+        return;
+    }
+
+    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const pos = { x: mouse.x, y: mouse.y };
+
+    window.addEventListener("mousemove", (event) => {
+        mouse.x = event.clientX;
+        mouse.y = event.clientY;
+    });
+
+    const hoverTargets = document.querySelectorAll("a, button, .service-row, .work-item");
+    hoverTargets.forEach((target) => {
+        target.addEventListener("mouseenter", () => cursor.classList.add("is-hover"));
+        target.addEventListener("mouseleave", () => cursor.classList.remove("is-hover"));
+    });
+
+    function renderCursor() {
+        pos.x += (mouse.x - pos.x) * 0.18;
+        pos.y += (mouse.y - pos.y) * 0.18;
+        cursor.style.left = `${pos.x}px`;
+        cursor.style.top = `${pos.y}px`;
+        cursorDot.style.left = `${mouse.x}px`;
+        cursorDot.style.top = `${mouse.y}px`;
+        requestAnimationFrame(renderCursor);
+    }
+
+    renderCursor();
+}
+
+function initParallaxOrbs() {
+    if (isTouchDevice || prefersReducedMotion) {
+        return;
+    }
+
+    const orbs = document.querySelectorAll("[data-parallax]");
+    if (!orbs.length) {
+        return;
+    }
+
+    window.addEventListener("mousemove", (event) => {
+        const x = (event.clientX / window.innerWidth - 0.5) * 2;
+        const y = (event.clientY / window.innerHeight - 0.5) * 2;
+
+        orbs.forEach((orb) => {
+            const strength = Number(orb.dataset.parallax) || 0.04;
+            orb.style.transform = `translate(${x * strength * 120}px, ${y * strength * 120}px)`;
+        });
+    });
+}
+
+function initMagneticButtons() {
+    if (isTouchDevice || prefersReducedMotion) {
+        return;
+    }
+
+    document.querySelectorAll(".magnetic").forEach((button) => {
+        button.addEventListener("mousemove", (event) => {
+            const rect = button.getBoundingClientRect();
+            const x = event.clientX - rect.left - rect.width / 2;
+            const y = event.clientY - rect.top - rect.height / 2;
+            button.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+        });
+
+        button.addEventListener("mouseleave", () => {
+            button.style.transform = "translate(0, 0)";
+        });
+    });
+}
+
 function initRevealMotion() {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealItems = document.querySelectorAll("[data-reveal]");
 
     if (!revealItems.length) {
@@ -157,22 +240,39 @@ function initRevealMotion() {
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.utils.toArray(revealItems).forEach((item, index) => {
-        const delay = item.closest(".hero") ? index * 0.08 : 0;
+        const inHero = Boolean(item.closest(".hero"));
 
         gsap.to(item, {
             opacity: 1,
             y: 0,
-            duration: 0.95,
+            duration: inHero ? 1.05 : 0.9,
             ease: "power3.out",
-            delay,
+            delay: inHero ? index * 0.1 : 0,
             scrollTrigger: {
                 trigger: item,
-                start: "top 90%",
+                start: "top 92%",
                 toggleActions: "play none none none",
                 once: true,
             },
         });
     });
+
+    const watermark = document.querySelector(".hero-watermark");
+    if (watermark) {
+        gsap.to(watermark, {
+            yPercent: 18,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+            },
+        });
+    }
 }
 
+initCursor();
+initParallaxOrbs();
+initMagneticButtons();
 initRevealMotion();
