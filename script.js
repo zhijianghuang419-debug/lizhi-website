@@ -12,10 +12,6 @@ const hasChat = Boolean(chatToggle && chatWindow && chatClose && chatInput && ch
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
-if (isTouchDevice) {
-    document.body.classList.add("is-touch");
-}
-
 function setChatOpen(isOpen) {
     if (!hasChat) {
         return;
@@ -144,44 +140,6 @@ if (hasChat) {
     });
 }
 
-function initCursor() {
-    if (isTouchDevice || prefersReducedMotion) {
-        return;
-    }
-
-    const cursor = document.querySelector(".cursor");
-    const cursorDot = document.querySelector(".cursor-dot");
-    if (!cursor || !cursorDot) {
-        return;
-    }
-
-    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const pos = { x: mouse.x, y: mouse.y };
-
-    window.addEventListener("mousemove", (event) => {
-        mouse.x = event.clientX;
-        mouse.y = event.clientY;
-    });
-
-    const hoverTargets = document.querySelectorAll("a, button, .service-row, .work-item");
-    hoverTargets.forEach((target) => {
-        target.addEventListener("mouseenter", () => cursor.classList.add("is-hover"));
-        target.addEventListener("mouseleave", () => cursor.classList.remove("is-hover"));
-    });
-
-    function renderCursor() {
-        pos.x += (mouse.x - pos.x) * 0.18;
-        pos.y += (mouse.y - pos.y) * 0.18;
-        cursor.style.left = `${pos.x}px`;
-        cursor.style.top = `${pos.y}px`;
-        cursorDot.style.left = `${mouse.x}px`;
-        cursorDot.style.top = `${mouse.y}px`;
-        requestAnimationFrame(renderCursor);
-    }
-
-    renderCursor();
-}
-
 function initParallaxOrbs() {
     if (isTouchDevice || prefersReducedMotion) {
         return;
@@ -272,7 +230,6 @@ function initRevealMotion() {
     }
 }
 
-initCursor();
 initParallaxOrbs();
 initMagneticButtons();
 initRevealMotion();

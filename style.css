@@ -30,11 +30,6 @@ body {
     font-family: var(--font-sans);
     line-height: 1.6;
     text-align: left;
-    cursor: none;
-}
-
-body.is-touch {
-    cursor: auto;
 }
 
 img {
@@ -58,42 +53,6 @@ main {
     opacity: 0.08;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     mix-blend-mode: soft-light;
-}
-
-.cursor,
-.cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1300;
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-}
-
-.cursor {
-    width: 42px;
-    height: 42px;
-    border: 1px solid rgba(255, 255, 255, 0.75);
-    transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, opacity 0.25s ease;
-}
-
-.cursor.is-hover {
-    width: 72px;
-    height: 72px;
-    background: rgba(255, 255, 255, 0.12);
-}
-
-.cursor-dot {
-    width: 6px;
-    height: 6px;
-    background: #fff;
-}
-
-body.is-touch .cursor,
-body.is-touch .cursor-dot {
-    display: none;
 }
 
 .site-nav {
@@ -759,12 +718,8 @@ body.is-touch .cursor-dot {
     padding: 0;
     border: 0;
     background: transparent;
-    cursor: none;
-    font: inherit;
-}
-
-body.is-touch .contact-chat {
     cursor: pointer;
+    font: inherit;
 }
 
 .contact-links a:hover,
@@ -924,16 +879,9 @@ body.is-touch .contact-chat {
     background: var(--accent);
     color: #fff;
     box-shadow: 0 10px 30px rgba(0, 113, 227, 0.4);
-    cursor: none;
+    cursor: pointer;
     font-size: 25px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-body.is-touch .ai-chat-toggle,
-body.is-touch .ai-chat-close,
-body.is-touch .ai-chat-input input,
-body.is-touch .ai-chat-input button {
-    cursor: pointer;
 }
 
 .ai-chat-toggle:hover {
@@ -996,7 +944,7 @@ body.is-touch .ai-chat-input button {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.08);
     color: var(--muted);
-    cursor: none;
+    cursor: pointer;
     font-size: 22px;
     line-height: 1;
 }
@@ -1106,7 +1054,7 @@ body.is-touch .ai-chat-input button {
     border-radius: 50%;
     background: var(--accent);
     color: #fff;
-    cursor: none;
+    cursor: pointer;
     font-size: 21px;
 }
 
